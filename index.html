@@ -65,14 +65,12 @@
 
   
   
-<p>Whiteboard</p>
+<p>POC1 UPD IMG</p>
 <canvas id="canvasWhiteboard" width="500" height="500"></canvas>
-
 <br />
-<input type="button" id="btSavePNG" value="Savar Whiteboard como PNG" />
+<input type="button" id="btSavePNG" value="Savar IMG como PNG" />
 <br />
-<input type="button" id="btSaveJPG" value="Savar Whiteboard como JPG" />
-
+<input type="button" id="btSaveJPG" value="Savar IMG como JPG" />
 <script type="text/javascript">
 window.onload = function() {
 
@@ -151,6 +149,32 @@ window.onload = function() {
 	}
 }
 </script>
+	
+<p>POC2 PDF</p>	
+<script src="jspdf.min.js"></script>
+<input type="button" id="button" value="PDF"/>
+<script>
+
+	$('#button').click(function() {
+		
+		 var doc = new jsPDF();
+
+		//var imgData = 'data:image/jpeg;base64,';
+		 
+		 //doc.addImage(imgData, 'JPEG',0,0,210,297);
+		 
+		var name = 'POC2';
+		
+		doc.setFontSize(26);
+		doc.setTextColor(92, 76, 76);
+		
+		doc.text(23, 81, name);
+
+		 doc.save('test.pdf');
+
+	});
+</script>	
+	
 </body>
 
 </html>
