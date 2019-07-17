@@ -85,17 +85,17 @@ window.onload = function() {
         
 	//POC1.1 img
 	img = new Image();
-        img.src = 'roda.png';
+        img.src = 'Roda.PNG';
         context.drawImage(img, 0, 0);
       
 	//POC1.2 resize img
 	//const img = new Image();
 	//img.src = 'roda.png';
-	//img.onload = () => {
-	//	context.drawImage(img, 0, 0);
+	img.onload = () => {
+		context.drawImage(img, 0, 0);
 	//	img.style.height='2px'; 
 	//    	img.style.width='2px';
-      	//};
+      	};
 
 	// Linha para escrever
 	context.beginPath();
