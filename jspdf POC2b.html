@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>POC2 PDF</title>
+</head>
+<body>
+<h1>POC2 PDF</h1>
+<input type="button" id="button" value="PDF"/>
+
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js">  </script>
+<script type="text/javascript">
+
+
+
+$('#button').click(function() {
+		
+    var pdf = new jsPDF();
+    pdf.text(30, 30, 'Hello world!');
+    pdf.save('hello_world.pdf');
+
+		 //var doc = new jsPDF();
+		//var imgData = 'data:image/jpeg;base64,';
+		 
+		 //doc.addImage(imgData, 'JPEG',0,0,210,297);
+		 
+		//var name = 'POC2';
+		
+		//doc.setFontSize(26);
+		//doc.setTextColor(92, 76, 76);
+		
+		//doc.text(23, 81, name);
+		 //doc.save('test.pdf');
+});
+
+</script>
+</body>
+</html>
