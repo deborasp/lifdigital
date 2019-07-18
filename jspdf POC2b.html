@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>POC2 PDF</h1>
-<input type="button" id="button" value="PDF"/>
+<input type="button" id="button" value="PDF" onclick="myPDF()/>
 
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js">  </script>
@@ -14,10 +14,10 @@
 
 
 
-button.click(function() {
+function myPDF() {
 		
     var pdf = new jsPDF();
-    pdf.text(30, 30, 'POC2b1');
+    pdf.text(30, 30, 'POC2b2');
     pdf.save('hello_world.pdf');
 
 		 //var doc = new jsPDF();
@@ -32,7 +32,7 @@ button.click(function() {
 		
 		//doc.text(23, 81, name);
 		 //doc.save('test.pdf');
-});
+};
 
 </script>
 </body>
