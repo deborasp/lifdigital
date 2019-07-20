@@ -24,6 +24,9 @@
     const existingPdfDocBytes = fetch(myRequest).then(function(response) {
         return response.arrayBuffer();
     });
+    
+    var PDFDocumentFactory = PDFLib.PDFDocumentFactory; 
+    var drawText = PDFLib.drawText; 
     const pdfDoc = PDFDocumentFactory.load(existingPdfDocBytes);
     const [helveticaRef, helveticaFont] = pdfDoc.embedStandardFont(
       StandardFonts.Helvetica,
