@@ -27,7 +27,7 @@
     
     var PDFDocumentFactory = PDFLib.PDFDocumentFactory; 
     var drawText = PDFLib.drawText; 
-    const pdfDoc = PDFDocumentFactory.load(existingPdfDocBytes);
+    const pdfDoc = PDFDocumentFactory.load(new Uint8Array(existingPdfDocBytes));
     const [helveticaRef, helveticaFont] = pdfDoc.embedStandardFont(
       StandardFonts.Helvetica,
     );
