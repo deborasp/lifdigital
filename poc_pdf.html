@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="utf-8">
+<title>POC2c</title>
+</head>
+<body>
+<h1>POC2a</h1>
+<!--script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.0.272/jspdf.debug.js">  </script-->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<script type="text/javascript">
+    
+    //import { PDFDocumentFactory, PDFDocumentWriter, StandardFonts, drawText } from 'https://github.com/deborasp/lifdigital/blob/master/pdf-lib.js';
+    
+    
+    //import { PDFDocumentFactory, PDFDocumentWriter, StandardFonts, drawText } from 'pdf-lib';
+    var PDFDocumentFactory = PDFLib.PDFDocumentFactory; 
+    var drawText = PDFLib.drawText;  
+    var StandardFonts = PDFLib.StandardFonts;
+    var PDFDocumentWriter = PDFLib.PDFDocumentWriter;
+const pdfDoc = PDFDocumentFactory.create();
+const [timesRomanRef, timesRomanFont] = pdfDoc.embedStandardFont(
+  StandardFonts.TimesRoman,
+);
+ 
+const page = pdfDoc
+  .createPage([350, 500])
+  .addFontDictionary('TimesRoman', timesRomanRef);
+ 
+const contentStream = pdfDoc.createContentStream(
+  drawText(timesRomanFont.encodeText('Creating PDFs in JavaScript is awesome!'), {
+    x: 50,
+    y: 450,
+    size: 15,
+    font: 'TimesRoman',
+    colorRgb: [0, 0.53, 0.71],
+  }),
+);
+ 
+page.addContentStreams(pdfDoc.register(contentStream));
+ 
+pdfDoc.addPage(page);
+ 
+const pdfBytes = PDFDocumentWriter.saveToBytes(pdfDoc);
+    
+    
+    
+    //poc2a create a PDF
+    //var pdf = new jsPDF();
+    //pdf.text(30, 30, 'POC2a!');
+    //pdf.save('POC2.pdf');
+</script>
+</body>
+</html>
