@@ -16,7 +16,8 @@
     
     
     //import { PDFDocumentFactory, PDFDocumentWriter, StandardFonts, drawText } from 'pdf-lib';
- 
+    var PDFDocumentFactory = PDFLib.PDFDocumentFactory; 
+    var drawText = PDFLib.drawText;  
 const pdfDoc = PDFDocumentFactory.create();
 const [timesRomanRef, timesRomanFont] = pdfDoc.embedStandardFont(
   StandardFonts.TimesRoman,
