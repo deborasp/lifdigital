@@ -14,42 +14,36 @@
     
     //import { PDFDocumentFactory, PDFDocumentWriter, StandardFonts, drawText } from 'https://github.com/deborasp/lifdigital/blob/master/pdf-lib.js';
     
-    // This should be a Uint8Array.
-    // This data can be obtained in a number of different ways.
-    // If your running in a Node environment, you could use fs.readFile().
-    // In the browser, you could make a fetch() call and use res.arrayBuffer().
-    //var myRequest = new Request('https://github.com/deborasp/lifdigital/blob/master/hello_world.pdf');
-    var myRequest = new Request('hello_world.pdf');
-    //const existingPdfDocBytes = fetch(myRequest).arrayBuffer();
-    const existingPdfDocBytes = fetch(myRequest).then(function(response) {
-        return response.arrayBuffer();
-    });
     
-    var PDFDocumentFactory = PDFLib.PDFDocumentFactory; 
-    var drawText = PDFLib.drawText; 
-    const pdfDoc = PDFDocumentFactory.load(new Uint8Array(existingPdfDocBytes));
-    const [helveticaRef, helveticaFont] = pdfDoc.embedStandardFont(
-      StandardFonts.Helvetica,
-    );
+    //import { PDFDocumentFactory, PDFDocumentWriter, StandardFonts, drawText } from 'pdf-lib';
+ 
+const pdfDoc = PDFDocumentFactory.create();
+const [timesRomanRef, timesRomanFont] = pdfDoc.embedStandardFont(
+  StandardFonts.TimesRoman,
+);
+ 
+const page = pdfDoc
+  .createPage([350, 500])
+  .addFontDictionary('TimesRoman', timesRomanRef);
+ 
+const contentStream = pdfDoc.createContentStream(
+  drawText(timesRomanFont.encodeText('Creating PDFs in JavaScript is awesome!'), {
+    x: 50,
+    y: 450,
+    size: 15,
+    font: 'TimesRoman',
+    colorRgb: [0, 0.53, 0.71],
+  }),
+);
+ 
+page.addContentStreams(pdfDoc.register(contentStream));
+ 
+pdfDoc.addPage(page);
+ 
+const pdfBytes = PDFDocumentWriter.saveToBytes(pdfDoc);
+    
+    
 
-    const pages = pdfDoc.getPages();
-    const page  = pages[0];
-
-    page.addFontDictionary('Helvetica', helveticaRef);
-
-    const contentStream = pdfDoc.createContentStream(
-      drawText(helveticaFont.encodeText('This text was added to the PDF with JavaScript!'), {
-        x: 25,
-        y: 25,
-        size: 24,
-        font: 'Helvetica',
-        colorRgb: [0.95, 0.26, 0.21],
-      }),
-    );
-
-    page.addContentStreams(pdfDoc.register(contentStream));
-
-    const pdfBytes = PDFDocumentWriter.saveToBytes(pdfDoc);
     
     //poc2a create a PDF
     //var pdf = new jsPDF();
