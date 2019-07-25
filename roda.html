@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+	
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+</head>
+
+<body>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+
+
+  
+  
+<p>POC1 UPD Imagem v1</p>
+<canvas id="canvasWhiteboard" width="500" height="500"></canvas>
+<br />
+<input type="button" id="btSavePNG" value="Savar IMG como PNG" />
+<br />
+<input type="button" id="btSaveJPG" value="Savar IMG como JPG" />
+<script type="text/javascript">
+window.onload = function() {
+	var canvasWhiteboard = document.getElementById("canvasWhiteboard");
+	var context = canvasWhiteboard.getContext("2d");
+	// Background
+	context.fillStyle = "rgb(255,255,255)";
+	context.fillRect(0,0,canvasWhiteboard.width,canvasWhiteboard.height);
+        
+	//POC1.1 img
+	//img = new Image();
+        //img.src = 'Roda.PNG';
+        //context.drawImage(img, 0, 0);
+      
+	//POC1.2 resize img
+	const img = new Image();
+	img.src = 'Roda.PNG';
+	img.onload = () => {
+		context.drawImage(img, 0, 0);
+	//	img.style.height='2px'; 
+	//    	img.style.width='2px';
+      	};
+	// Linha para escrever
+	context.beginPath();
+	context.strokeStyle = "rgb(0,0,0)";
+	
+	context.lineWidth = 4;
+	/************************
+	 * Início do Whiteboard
+	 ************************/
+	var bMouseIsDown = false;
+	canvasWhiteboard.onmousedown = function(e) {
+		bMouseIsDown = true;
+		whiteboardLastX = e.clientX - canvasWhiteboard.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
+		whiteboardLastY = e.clientY - canvasWhiteboard.offsetTop + (window.pageYOffset||document.body.scrollTop||document.documentElement.scrollTop);
+		context.moveTo(whiteboardLastX, whiteboardLastY);
+	}
+	canvasWhiteboard.onmouseup = function() {
+		bMouseIsDown = false;
+		whiteboardLastX = -1;
+		whiteboardLastY = -1;
+	}
+	canvasWhiteboard.onmousemove = function(e) {
+		if (bMouseIsDown) {
+			var iX = e.clientX - canvasWhiteboard.offsetLeft + (window.pageXOffset||document.body.scrollLeft||document.documentElement.scrollLeft);
+			var iY = e.clientY - canvasWhiteboard.offsetTop + (window.pageYOffset||document.body.scrollTop||document.documentElement.scrollTop);
+			context.lineTo(iX, iY);
+			context.stroke();
+			whiteboardLastX = iX;
+			whiteboardLastY = iY;
+		}
+	}
+	/************************
+	 * fim do Whiteboard
+	 ************************/
+	// Salvar o PNG
+	document.getElementById("btSavePNG").onclick = function() {
+		// Esta linha captura a imagem do Canvas
+		var imagemData = canvasWhiteboard.toDataURL("image/png")
+		// Esta linha altera o DATA para octet-stream para que o navegador 
+		// coloque este arquivo para download
+		document.location.href = imagemData.replace("image/png", "image/octet-stream");
+	}
+	// Salvar o PNG
+	document.getElementById("btSaveJPG").onclick = function() {
+		// Esta linha captura a imagem do Canvas
+		var imagemData = canvasWhiteboard.toDataURL("image/jpeg")
+		// Esta linha altera o DATA para octet-stream para que o navegador 
+		// coloque este arquivo para download
+		document.location.href = imagemData.replace("image/jpeg", "image/octet-stream");
+	}
+}
+</script>
+
+
+</body>
+
+</html>
